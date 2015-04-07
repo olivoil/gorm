@@ -31,8 +31,8 @@ func (association *Association) Append(values ...interface{}) *Association {
 	field := association.Field
 
 	for _, value := range values {
-		reflectvalue := reflect.Indirect(reflect.ValueOf(value))
-		if reflectvalue.Kind() == reflect.Struct {
+		reflectvalue := reflect.ValueOf(value)
+		if reflect.Indirect(reflectvalue).Kind() == reflect.Struct {
 			field.Set(reflect.Append(field.Field, reflectvalue))
 		} else if reflectvalue.Kind() == reflect.Slice {
 			field.Set(reflect.AppendSlice(field.Field, reflectvalue))
